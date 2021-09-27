@@ -30,7 +30,8 @@ plot audio file as a spectrogram
 """
 
 
-def plot_spectrogram(audio_data, sample_rate, title="", log_frequency_scale=False, figsize=(10, 6), axis=True):
+def plot_spectrogram(audio_data, sample_rate, title="", log_frequency_scale=False, figsize=(14, 5),
+                     axis=True, save_path=None):
     # "The first thing we might want to do is display an ordinary (linear) spectrogram.
     # We’ll do this by first computing the short-time Fourier transform, and then mapping
     # the magnitudes to a decibel scale". (librosa.org: Using display.specshow)
@@ -46,19 +47,11 @@ def plot_spectrogram(audio_data, sample_rate, title="", log_frequency_scale=Fals
         fig.colorbar(img, ax=ax, format="%+2.f dB")
     else:
         plt.axis('off')
-
-
-"""
-save spectrogram of audio file as image
-"""
-
-
-def save_spectrogram(audio_data, sample_rate, save_path="histogram.png", axis=False, figsize=(35, 20)):
-    plot_spectrogram(audio_data, sample_rate, axis=axis, figsize=figsize)
-    if axis is True:
-        plt.savefig(save_path)
-    else:
-        plt.savefig(save_path, bbox_inches='tight', pad_inches=0)
+    if save_path is not None:
+        if axis is True:
+            plt.savefig(save_path)
+        else:
+            plt.savefig(save_path, bbox_inches='tight', pad_inches=0)
 
 
 """
