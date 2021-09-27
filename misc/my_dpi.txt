@@ -1,0 +1,1 @@
+According to https://www.infobyip.com/detectmonitordpi.php, my monitor's DPI is 144 x 144.
