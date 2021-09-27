@@ -30,5 +30,5 @@ save a numpy array as an image
 """
 
 
-def save_image(image, path="saved_image.jpg"):
+def save_image(image, path="saved_image.png"):
     cv2.imwrite(path, image)
