@@ -51,10 +51,14 @@ def plot_spectrogram(audio_data, sample_rate, title="", log_frequency_scale=Fals
 """
 save spectrogram of audio file as image
 """
-def save_spectrogram(audio_data, sample_rate, save_path="histogram.png", axis=False):
-    plot_spectrogram(audio_data, sample_rate, axis=axis)
 
 
+def save_spectrogram(audio_data, sample_rate, save_path="histogram.png", axis=False, figsize=(10, 6)):
+    plot_spectrogram(audio_data, sample_rate, axis=axis, figsize=figsize)
+    if axis is True:
+        plt.savefig(save_path)
+    else:
+        plt.savefig(save_path, bbox_inches='tight', pad_inches=0)
 
 
 """
