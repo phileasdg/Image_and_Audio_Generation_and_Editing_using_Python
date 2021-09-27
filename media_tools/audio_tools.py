@@ -53,7 +53,7 @@ save spectrogram of audio file as image
 """
 
 
-def save_spectrogram(audio_data, sample_rate, save_path="histogram.png", axis=False, figsize=(10, 6)):
+def save_spectrogram(audio_data, sample_rate, save_path="histogram.png", axis=False, figsize=(35, 20)):
     plot_spectrogram(audio_data, sample_rate, axis=axis, figsize=figsize)
     if axis is True:
         plt.savefig(save_path)
