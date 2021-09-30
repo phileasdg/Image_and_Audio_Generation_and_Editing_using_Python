@@ -1,4 +1,6 @@
 import cv2
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 import numpy as np
 import os.path
 
@@ -27,17 +29,7 @@ read video data from the device camera and returns a video data array
 
 
 def read_video_from_camera():
-    frames = []
-    video = cv2.VideoCapture(0)
-    ret = True
-    while ret:
-        ret, frame = video.read()  # read one frame from the video capture object
-        if ret:
-            frames.append(frame)
-    fps = video.get(cv2.CAP_PROP_FPS)
-    video.release()
-    video = np.stack(frames, axis=0)
-    return video, fps
+    pass
 
 
 """
@@ -58,5 +50,25 @@ def save_video(video, fps=30, path="saved_video.avi"):
         print("Video saved at:", path)
 
 
-def show_video():
-    pass
+"""
+open a video file using the os default application
+"""
+
+
+def open_video_os_default(path):
+    os.startfile(path, 'open')
+
+
+"""
+play video from video array
+"""
+
+
+def play_from_array(video, fps=30, axis=False, scale_ratio = .5):
+    fig = plt.figure(figsize=[scale_ratio*x for x in plt.rcParams["figure.figsize"]])
+    for frame in video:
+        plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), animated = True)
+    if axis is not True:
+        plt.axis('off')
+    animation.ArtistAnimation(fig, video, interval=1000/fps, blit=True)
+    plt.show()
