@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def normalise_array(array, uint8=False):
     array = (array - np.min(array)) / np.ptp(array)
     if uint8 is True:

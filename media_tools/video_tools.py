@@ -1,33 +1,41 @@
-from moviepy.editor import *
+import cv2
+import numpy as np
+
+"""
+read video data from a file and returns a video data array
+"""
 
 
-# loading video dsa gfg intro video
 def read_video(path):
-    clip = VideoFileClip(path)
-    return clip
+    frames = []
+    video = cv2.VideoCapture(path)
+    ret = True
+    while ret:
+        ret, frame = video.read()  # read one frame from the video capture object
+        if ret:
+            frames.append(frame)
+    video = np.stack(frames, axis=0)
+    return video
 
 
-def video_subclip(video_data, subclip=None):
-    # if the subclip parameter is undefined, do not clip the video
-    if subclip is None:
-        subclip = (0, video_data.duration())
-    # getting video for only starting 10 seconds
-    clip = video_data.subclip(subclip)
-    return clip
+"""
+read video data from the device camera and returns a video data array
+"""
 
 
-def rotate_video(video_data):
-    # rotate video by 180 degree
-    clip = video_data.rotate(180)
-    return clip
+def read_video_from_camera():
+    pass
 
 
-def scale_volume(video_data):
-    # Multiply the audio volume by the multiplying factor (volume x 0.5)
-    clip = video_data.volumex(0.5)
-    return clip
+def save_video(video, path="saved_video.avi"):
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    length, width = video.shape[1:3]
+    video_out = cv2.VideoWriter(path, fourcc, format(video.get(cv2.CAP_PROP_FPS)))
+    for frame in video:
+        video_out.write(frame)
+    video_out.release()
+    cv2.destroyAllWindows()
 
 
-def show_video(video_data):
-    # showing clip
-    video_data.ipython_display(width=280)
+def show_video():
+    pass
