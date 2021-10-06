@@ -1,7 +1,7 @@
 import os.path
 import cv2
 import numpy as np
-from IPython.display import Video
+from IPython.display import HTML
 
 """
 read video data from a file and returns a video data array
@@ -64,4 +64,8 @@ play video from file
 
 
 def play_from_file(path):
-    return Video(path)
+    return HTML("""
+    <div align="middle">
+    <video width="80%" controls>
+          <source src="""+path+""" type="video/mp4">
+    </video></div>""")
