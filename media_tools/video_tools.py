@@ -1,8 +1,7 @@
-import cv2
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import numpy as np
 import os.path
+import cv2
+import numpy as np
+from IPython.display import Video
 
 """
 read video data from a file and returns a video data array
@@ -60,15 +59,9 @@ def open_video_os_default(path):
 
 
 """
-play video from video array
+play video from file
 """
 
 
-def play_from_array(video, fps=30, axis=False, scale_ratio = .5):
-    fig = plt.figure(figsize=[scale_ratio*x for x in plt.rcParams["figure.figsize"]])
-    for frame in video:
-        plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), animated = True)
-    if axis is not True:
-        plt.axis('off')
-    animation.ArtistAnimation(fig, video, interval=1000/fps, blit=True)
-    plt.show()
+def play_from_file(path):
+    return Video(path)
