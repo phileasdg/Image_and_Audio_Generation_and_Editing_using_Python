@@ -1,8 +1,12 @@
 # TODO:
-- get audio reading from video files
-- display video in Jupyter notebook
-- Send Colin the GitHub repository
+- get audio reading from video files (done)
+- display video in Jupyter notebook (done)
+- Send Colin the GitHub repository (done)
 - Brainstorm effects ideas
+  - datamoshing
+  - direct mapping
+  - generating stuff using strange attractors
+  - 
 - Consider desctructive vs non desctructive effects, and different levels of destructiveness
 - Consider additive non-destructive effect, normalised data in, normalised data out.
 - destructive effects typically applied last, but consider wacky effects of **not** doing that.
