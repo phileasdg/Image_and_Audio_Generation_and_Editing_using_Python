@@ -1,7 +1,9 @@
 import os.path
 import cv2
 import numpy as np
-from IPython.display import HTML
+from IPython.display import Video
+import moviepy.editor as mp
+
 
 """
 read video data from a file and returns a video data array
@@ -20,15 +22,6 @@ def read_video(path):
     video.release()
     video = np.stack(frames, axis=0)
     return video, fps
-
-
-"""
-read video data from the device camera and returns a video data array
-"""
-
-
-def read_video_from_camera():
-    pass
 
 
 """
@@ -59,13 +52,19 @@ def open_video_os_default(path):
 
 
 """
-play video from file
+play video from file (will not work for large video files)
 """
 
 
 def play_from_file(path):
-    return HTML("""
-    <div align="middle">
-    <video width="80%" controls>
-          <source src="""+path+""" type="video/mp4">
-    </video></div>""")
+    return Video(path)
+
+
+"""
+save an audio file copy from a video file
+"""
+
+def save_audio_from_video(video_path, audio_save_path):
+    video = mp.VideoFileClip(fr"{video_path}")
+    video.audio.write_audiofile(fr"{audio_save_path}")
+    print("Audio file saved at:", audio_save_path)
