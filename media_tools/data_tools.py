@@ -14,3 +14,7 @@ def clip_array(array, val_min=None, val_max=None):
         val_max = np.max(array)
     array = np.clip(array, val_min, val_max)
     return array
+
+#TODO
+def shift_array():
+    pass

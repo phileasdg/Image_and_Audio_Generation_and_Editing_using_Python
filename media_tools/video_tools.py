@@ -73,7 +73,6 @@ save an audio file copy from a video file
 
 def save_audio_from_video(video_path, audio_save_path):
     clip = mp.VideoFileClip(video_path)
-    print(clip)
     clip.audio.write_audiofile(audio_save_path)
 
 

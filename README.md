@@ -8,7 +8,8 @@ These tools form the package media_tools which is stored in the media_tools fold
 package is a foundation from which development can build upon to expand the possibilities for media mischief in Python.
 The package provides a hopefully solid base with room for subsequent development and expansion.
 
-My full independent study proposal is available to read [here](project_documentation/Fall%202021%20Independent%20Study%20Proposal%20Phileas.pdf).
+My full independent study proposal is available to read [here](project_documentation/Fall%202021%20Independent%20Study%20Proposal%20Phileas.pdf),
+and more contextual information about the project and this repository specifically can be found [here](project_documentation/General_Independent_Study_Notebook.ipynb).
 
 If you are coming across this project and thinking of trying media_tools out, I hope you enjoy the experience! Pull requests
 are quite welcome!
