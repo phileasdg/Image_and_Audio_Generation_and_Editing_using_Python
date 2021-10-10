@@ -9,7 +9,7 @@ read audio file as an array
 """
 
 
-def read_audio(path, mono=True):
+def read_audio(path, mono=False):
     y, sr = librosa.load(path, mono=mono)
     return y, sr
 
@@ -68,7 +68,7 @@ save an array as an audio file
 """
 
 
-def save_audio(path, audio_data, sample_rate, mono=True):
+def save_audio(path, audio_data, sample_rate, mono=False):
     if mono is True:
         sf.write(path, audio_data, sample_rate)
     else:
