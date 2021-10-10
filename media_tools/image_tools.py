@@ -16,10 +16,13 @@ display an array as an image
 """
 
 
-def show_image(image, axis=True, title="", scale_ratio=2):
+def show_image(image, axis=True, title="", scale_ratio=2, BGR=True):
     plt.figure(figsize=[scale_ratio*x for x in plt.rcParams["figure.figsize"]])
     plt.title(title)
-    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    if BGR is True:
+        plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    else:
+        plt.imshow(image)
     if axis is not True:
         plt.axis('off')
     plt.show()
