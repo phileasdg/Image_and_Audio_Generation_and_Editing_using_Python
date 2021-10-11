@@ -73,12 +73,15 @@ save an audio file copy from a video file
 
 def save_audio_from_video(video_path, audio_save_path):
     audio_clip = VideoFileClip(video_path).audio
+    print(audio_clip)
 
     try:
         audio_clip.write_audiofile(audio_save_path)
     except:
         AttributeError()
-        print("The video file referred to by the video_path has no audio.")
+        print("An error occurred. Please troubleshoot the following:\n"
+              "- make sure the video file referred to by the video_path has audio\n"
+              "- make sure the paths specify the appropriate save file formats")
 
 
 """
