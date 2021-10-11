@@ -2,7 +2,7 @@ import os.path
 import cv2
 import numpy as np
 from IPython.display import Video
-import moviepy.editor as mp
+from moviepy.editor import *
 from moviepy.audio.AudioClip import AudioArrayClip
 
 """
@@ -11,15 +11,15 @@ read video data from a file and returns a video data array
 
 
 def read_video(path, video_as_array=True):
-    clip = mp.VideoFileClip(path)
+    clip = VideoFileClip(path)
 
     if video_as_array is True:
         nframes = clip.reader.nframes
         frames = []
         for i in range(nframes):
-            frames.append(cv2.cvtColor(clip.get_frame(i), cv2.COLOR_RGB2BGR))
-        fps = clip.fps
-        return np.array(frames), fps
+            frames.append(clip.get_frame(i))
+        fps = clip.fps*2
+        return np.asarray(frames), fps
     else:
         return clip
 
@@ -34,18 +34,18 @@ def save_video(video, path="saved_video.avi", fps=None, video_is_image_array=Tru
 
     # is the video data in an array of images?
     if video_is_image_array is True:
-        clip = cv2.cvtColor(clip, cv2.COLOR_BGR2RGB)
         if fps is None:
             print("fps parameter left out, defaulting to fps == 30")
             fps = 30
-        clip = mp.ImageSequenceClip(list(video), fps=fps)
-        clip.write_videofile(path, fps=fps)
+        clip = ImageSequenceClip(list(video), fps=fps)
 
     # is the video a moviepy video object
     else:
         if fps is None:
             fps = clip.fps
-        clip.write_videofile(path, fps=fps)
+
+    # save the video
+    clip.write_videofile(path, fps=fps)
 
 
 """
@@ -72,8 +72,13 @@ save an audio file copy from a video file
 
 
 def save_audio_from_video(video_path, audio_save_path):
-    clip = mp.VideoFileClip(video_path)
-    clip.audio.write_audiofile(audio_save_path)
+    audio_clip = VideoFileClip(video_path).audio
+
+    try:
+        audio_clip.write_audiofile(audio_save_path)
+    except:
+        AttributeError()
+        print("The video file referred to by the video_path has no audio.")
 
 
 """
@@ -88,7 +93,7 @@ def assign_audio_to_video(audio, video, fps=None, sample_rate=None, video_is_ima
         if fps is None:
             print("fps parameter left out, defaulting to fps == 30")
             fps = 30
-        clip = mp.ImageSequenceClip(list(video), fps=fps)
+        clip = ImageSequenceClip(list(video), fps=fps)
 
     if sample_rate is None:
         print("sample_rate parameter left out, defaulting to sample_rate == 22050")
@@ -106,10 +111,10 @@ def assign_audio_to_video(audio, video, fps=None, sample_rate=None, video_is_ima
 
 
 def assign_audio_to_video_from_files(audio_path, video_path, video_copy_save_path, fps=30, subclip=None):
-    clip = mp.VideoFileClip(video_path)
+    clip = VideoFileClip(video_path)
     if subclip is None:
         subclip = (0, clip.duration)
     clip.subclip(subclip)
-    audio_clip = mp.AudioFileClip(audio_path).subclip(subclip)
+    audio_clip = AudioFileClip(audio_path).subclip(subclip)
     clip.set_audio(audio_clip)
     clip.write_videofile(video_copy_save_path, fps=fps)
