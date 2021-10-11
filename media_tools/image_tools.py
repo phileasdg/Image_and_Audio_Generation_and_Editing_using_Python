@@ -33,6 +33,7 @@ save a numpy array as an image
 
 
 def save_image(image, path="saved_image.png"):
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
     cv2.imwrite(path, image)
     file = Path(path)
     if file.is_file():
