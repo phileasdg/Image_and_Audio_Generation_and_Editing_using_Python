@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import IPython.display as ipd
 import soundfile as sf
+from pathlib import Path
 
 """
 read audio file as an array
@@ -68,8 +69,11 @@ save an array as an audio file
 """
 
 
-def save_audio(path, audio_data, sample_rate, mono=False):
+def save_audio(audio_data, sample_rate, path, mono=False):
     if mono is True:
         sf.write(path, audio_data, sample_rate)
     else:
         sf.write(path, audio_data.T, sample_rate)
+    file = Path(path)
+    if file.is_file():
+        print("Audio saved at: " + path)
