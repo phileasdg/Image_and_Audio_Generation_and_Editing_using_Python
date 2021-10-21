@@ -3,4 +3,5 @@ __all__ = ["audio_tools",
            "image_tools",
            "video_tools",
            "destructive_effects",
-           "nondestructive_effects"]
+           "nondestructive_effects",
+           "effects"]
