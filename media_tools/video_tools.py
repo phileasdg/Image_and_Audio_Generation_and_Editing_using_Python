@@ -66,7 +66,7 @@ assign audio to a video file
 """
 
 
-def assign_audio_to_video_from_files(audio_path, video_path, video_copy_save_path, fps=None, subclip=None):
+def assign_audio_to_video_from_files(audio_path, video_path, video_copy_save_path=None, fps=None, subclip=None):
     clip = VideoFileClip(video_path)
     if subclip is None:
         subclip = (0, clip.duration)
@@ -74,6 +74,9 @@ def assign_audio_to_video_from_files(audio_path, video_path, video_copy_save_pat
     if fps is None:
         fps = clip.fps
     clip.subclip(subclip)
+
+    if video_copy_save_path is None:
+        video_copy_save_path = video_path
 
     audio_clip = AudioFileClip(audio_path).subclip(subclip)
     clip.set_audio(audio_clip)
