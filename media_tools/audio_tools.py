@@ -20,7 +20,7 @@ plot audio file as a graph
 """
 
 
-def plot_waveform(audio_data, sample_rate, title=""):
+def plot_waveform(audio_data, sample_rate=22050, title=""):
     plt.figure(figsize=(14, 5))
     plt.title(title)
     librosa.display.waveshow(audio_data, sample_rate)
@@ -69,7 +69,7 @@ save an array as an audio file
 """
 
 
-def save_audio(audio_data, sample_rate, path, mono=False):
+def save_audio(audio_data, sample_rate=22050, path, mono=False):
     if mono is True:
         sf.write(path, audio_data, sample_rate)
     else:
