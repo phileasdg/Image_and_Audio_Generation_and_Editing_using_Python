@@ -73,11 +73,11 @@ def assign_audio_to_video_from_files(audio_path, video_path, video_copy_save_pat
 
     if fps is None:
         fps = clip.fps
-    clip.subclip(subclip)
+    clip.subclip(*subclip)
 
     if video_copy_save_path is None:
         video_copy_save_path = video_path
 
-    audio_clip = AudioFileClip(audio_path).subclip(subclip)
-    clip.set_audio(audio_clip)
+    audio_clip = AudioFileClip(audio_path).subclip(*subclip)
+    clip.audio = audio_clip
     clip.write_videofile(video_copy_save_path, fps=fps)
