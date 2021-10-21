@@ -18,7 +18,7 @@ display an array as an image
 """
 
 
-def show_image(image, axis=True, title="", scale_ratio=2):
+def show_image(image, axis=False, title="", scale_ratio=2):
     plt.figure(figsize=[scale_ratio*x for x in plt.rcParams["figure.figsize"]])
     plt.title(title)
     plt.imshow(image, cmap="gray")
