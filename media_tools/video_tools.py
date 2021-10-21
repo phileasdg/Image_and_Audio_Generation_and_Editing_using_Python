@@ -3,7 +3,7 @@ from IPython.display import Video
 from moviepy.editor import *
 
 """
-read video data from a file and returns a video data object
+read video data from a file and return a video data object
 """
 
 
