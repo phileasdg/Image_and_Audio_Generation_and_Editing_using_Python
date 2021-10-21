@@ -10,9 +10,12 @@ read audio file as an array
 """
 
 
-def read_audio(path, mono=False):
+def read_audio(path, mono=False, return_sr=False):
     y, sr = librosa.load(path, mono=mono)
-    return y, sr
+    if return_sr is False:
+        return y
+    else:
+        return y, sr
 
 
 """
@@ -31,7 +34,7 @@ plot audio file as a spectrogram
 """
 
 
-def plot_spectrogram(audio_data, sample_rate, title="", log_frequency_scale=False, figsize=(14, 5),
+def plot_spectrogram(audio_data, sample_rate=22050, title="", log_frequency_scale=False, figsize=(14, 5),
                      axis=True, save_path=None):
     # "The first thing we might want to do is display an ordinary (linear) spectrogram.
     # We’ll do this by first computing the short-time Fourier transform, and then mapping
@@ -60,7 +63,7 @@ play audio from array
 """
 
 
-def play_audio_from_array(audio_data, sample_rate):
+def play_audio_from_array(audio_data, sample_rate=22050):
     return ipd.Audio(audio_data, rate=sample_rate)
 
 
@@ -69,7 +72,7 @@ save an array as an audio file
 """
 
 
-def save_audio(audio_data, sample_rate=22050, path, mono=False):
+def save_audio(audio_data, sample_rate=22050, path="saved_audio.wav", mono=False):
     if mono is True:
         sf.write(path, audio_data, sample_rate)
     else:
