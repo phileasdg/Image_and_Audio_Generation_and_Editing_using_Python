@@ -86,7 +86,8 @@ def invert_array(array):
 
 
 """
-split a 1d array into a 2d array (good for converting things to image) split data array along rows into an array of n smaller arrays
+split a 1d array into a 2d array (good for converting things to image) split data array along rows into an array of n 
+smaller arrays 
 """
 
 
@@ -127,10 +128,23 @@ def array_1d_to_2d(array, add_empty_pixels=0, channels_per_pixel=3, select=-1, w
 plot a histogram of the data in an array (flatten it first)
 """
 
-def plot_histogram(array, bins="auto", title=None, xlabel=None, ylabel=None, save_path=None):
+def plot_histogram(array, bins="auto"):
     array = array.flatten()
     plt.hist(array, bins=bins)
     plt.show()
+
+
+"""
+clip an array to values within a range around the mean of the array, or another value (point), expressed in standard deviations
+"""
+
+
+def clip_array_stdev_around_point(array, n_stdev=4, point=None):
+    if point is None:
+        point = np.mean(array)
+    stdev = np.std(array)
+    array = np.clip(array, point - n_stdev * stdev, point + n_stdev * stdev)
+    return array
 
 
 # TODO
