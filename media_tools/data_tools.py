@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 """
 map values in a range to proportional values in another range
@@ -48,7 +49,6 @@ convert a 2d array to 1d array by flattening it
 
 def flatten_array(array):
     array = array.flatten()
-    print(array)
     return array
 
 
@@ -90,10 +90,7 @@ split a 1d array into a 2d array (good for converting things to image) split dat
 """
 
 
-def array_1d_to_2d(array, add_empty_pixels=0, channels_per_pixel=3, select=-1, wide=True):
-    # normalize the array to be between 0 and 255
-    array = normalise_array(array, uint8=True)
-
+def array_1d_to_2d(array, add_empty_pixels=0, channels_per_pixel=3, select=-1, wide=True, return_possible_shapes=False):
     # add observations so as  to enable perfect division of array into pixel cells
     add_observations = len(array) % channels_per_pixel
     array = np.concatenate((array, np.zeros(add_observations)))
@@ -106,9 +103,10 @@ def array_1d_to_2d(array, add_empty_pixels=0, channels_per_pixel=3, select=-1, w
 
     # get the shapes of all potential 2d arrays which the specified array can be shaped into
     shapes = get_factor_pairs(len(array))
-    print(pd.DataFrame({
-        "Possible 2d array shapes": shapes
-    }))
+    if return_possible_shapes is True:
+        print(pd.DataFrame({
+            "Possible 2d array shapes": shapes
+        }))
 
     # select an output array shape (1), reshape the 1d array (2), and return the new 2d array (3)
     # (1)
@@ -123,6 +121,16 @@ def array_1d_to_2d(array, add_empty_pixels=0, channels_per_pixel=3, select=-1, w
 
     # (3)
     return array_2d
+
+
+"""
+plot a histogram of the data in an array (flatten it first)
+"""
+
+def plot_histogram(array, bins="auto", title=None, xlabel=None, ylabel=None, save_path=None):
+    array = array.flatten()
+    plt.hist(array, bins=bins)
+    plt.show()
 
 
 # TODO
