@@ -60,9 +60,11 @@ convert a one-dimensional array to an grey-scale image array
 
 
 def array_1d_to_grayscale(array, add_empty_pixels=0, select=-1, wide=False):
+    # normalize the array to be between 0 and 255
+    array = normalise_array(array, uint8=True)
     array = data_tools.array_1d_to_2d(array, add_empty_pixels=add_empty_pixels, channels_per_pixel=1, select=select,
                                       wide=wide)
-    return array
+    return array.astype(int)
 
 
 """
@@ -71,6 +73,8 @@ convert a one-dimensional array to an RGB image array
 
 
 def array_1d_to_rgb(array, add_empty_pixels=0, select=-1, wide=False):
+    # normalize the array to be between 0 and 255
+    array = normalise_array(array, uint8=True)
     array = data_tools.array_1d_to_2d(array, add_empty_pixels=add_empty_pixels, channels_per_pixel=3, select=select,
                                       wide=wide)
-    return array
+    return array.astype(int)
