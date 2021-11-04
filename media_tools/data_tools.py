@@ -80,8 +80,11 @@ invert an array
 """
 
 
-def invert_array(array):
-    array = 1 - array
+def invert_array(array, uint8=False):
+    if uint8 is True:
+        array = 255 - array
+    else:
+        array = 1 - array
     return array
 
 
@@ -128,15 +131,15 @@ def array_1d_to_2d(array, add_empty_pixels=0, channels_per_pixel=3, select=-1, w
 plot a histogram of the data in an array (flatten it first)
 """
 
+
 def plot_histogram(array, bins="auto"):
     array = array.flatten()
     plt.hist(array, bins=bins)
     plt.show()
 
 
-"""
-clip an array to values within a range around the mean of the array, or another value (point), expressed in standard deviations
-"""
+"""clip an array to values within a range around the mean of the array, or another value (point), expressed in 
+standard deviations """
 
 
 def clip_array_stdev_around_point(array, n_stdev=4, point=None):
@@ -147,6 +150,24 @@ def clip_array_stdev_around_point(array, n_stdev=4, point=None):
     return array
 
 
-# TODO
-def shift_array():
+"""
+clip an array to values within a range around a value in the array (point), expressed as an upper and lower bound
+"""
+
+
+def clip_array_around_point(array, point=None, lower_bound=None, upper_bound=None):
+    if point is None:
+        point = np.mean(array)
+    if lower_bound is None:
+        lower_bound = point - np.std(array) * 4
+    if upper_bound is None:
+        upper_bound = point + np.std(array) * 4
+    array = np.clip(array, point - lower_bound, point + upper_bound)
+    return array
+
+
+"""
+shift an array by a value along the one or more axes, or by multiple values along multiple axes.
+"""
+def shift_array(array, shift):
     pass
