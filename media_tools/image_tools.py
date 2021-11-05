@@ -99,28 +99,5 @@ cv2.BORDER_REFLECT_101, cv2.BORDER_DEFAULT
 
 
 def rotate_image(image, angle, bound=True, point=None, border_type=cv2.BORDER_CONSTANT, border_value=(0, 0, 0)):
-    if point is None:
-        # make the point of rotation the center of the image
-        point = tuple(np.array(image.shape[1::-1]) / 2)
-
-    # get height and width of the image
-    h, w = image.shape[:2]
-
-    if bound:
-        # get the rotation matrix
-        matrix = cv2.getRotationMatrix2D(point, -angle, scale=1.0)
-        # get the sine and cosine
-        cos = np.abs(matrix[0, 0])
-        sin = np.abs(matrix[0, 1])
-        # compute the new bounding dimensions of the image
-        nH = int((h * cos) + (w * sin))
-        nW = int((h * sin) + (w * cos))
-        # adjust the rotation matrix to take into account translation
-        matrix[0, 2] += (nW / 2) - point[0]
-        matrix[1, 2] += (nH / 2) - point[1]
-        # perform the actual rotation and return the image
-        return cv2.warpAffine(image, matrix, dsize=(nW, nH), borderMode=border_type, borderValue=border_value)
-    else:
-        # rotate the image
-        return cv2.warpAffine(image, cv2.getRotationMatrix2D(point, -angle, 1.0), image.shape[1::-1],
-                              borderMode=border_type, borderValue=border_value)
+    image = data_tools.rotate_2d_array_around_point(image, angle, bound, border_type, border_value)
+    return image
