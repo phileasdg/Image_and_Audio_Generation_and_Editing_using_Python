@@ -167,16 +167,6 @@ def clip_array_around_point(array, point=None, lower_bound=None, upper_bound=Non
     return array
 
 
-# TODO:
-"""
-shift an array by a value along the one or more axes, or by multiple values along multiple axes.
-"""
-
-
-def shift_array(array, shift):
-    pass
-
-
 """
 rotate a 2d array around a point (default is the centre of the array)
 
@@ -185,7 +175,8 @@ cv2.BORDER_REFLECT_101, cv2.BORDER_DEFAULT
 """
 
 
-def rotate_2d_array_around_point(array, angle, bound=True, border_type=cv2.BORDER_CONSTANT, border_value=0):
+def rotate_2d_array_around_point(array, angle, bound=True, border_type=cv2.BORDER_CONSTANT, border_value=0,
+                                 interpolation=cv2.INTER_LINEAR):
     # make the point of rotation the center of the array
     point = tuple(np.array(array.shape[1::-1]) / 2)
 
@@ -205,7 +196,8 @@ def rotate_2d_array_around_point(array, angle, bound=True, border_type=cv2.BORDE
         matrix[0, 2] += (nW / 2) - point[0]
         matrix[1, 2] += (nH / 2) - point[1]
         # perform the actual rotation and return the array
-        return cv2.warpAffine(array, matrix, dsize=(nW, nH), borderMode=border_type, borderValue=border_value)
+        return cv2.warpAffine(array, matrix, dsize=(nW, nH), borderMode=border_type, borderValue=border_value,
+                              flags=interpolation)
     else:
         # rotate the array
         return cv2.warpAffine(array, cv2.getRotationMatrix2D(point, -angle, 1.0), array.shape[1::-1],
@@ -220,7 +212,7 @@ rescale an array to a new size (by stretching and squishing)
 
 
 def rescale_2d_array(array, new_dimensions=(2000, 2000), interpolation=cv2.INTER_CUBIC):
-    array = cv2.resize(array, dsize=(new_dimensions), interpolation=interpolation)
+    array = cv2.resize(array, dsize=new_dimensions, interpolation=interpolation)
     return array
 
 
@@ -229,7 +221,7 @@ rescale a 2d array by a factor along one or more axes
 """
 
 
-def rescale_2d_array_by_factor(array, factor, axes:tuple=(0,1), interpolation=cv2.INTER_CUBIC):
+def rescale_2d_array_by_factor(array, factor, axes: tuple = (0, 1), interpolation=cv2.INTER_CUBIC):
     # get the original dimensions of the array
     dim = np.flip(np.asarray(array.shape[:2]))
     for axis in axes:
@@ -245,6 +237,30 @@ flip an array along one or more axes
 """
 
 
-def flip_2d_array(array, axes:tuple=(0,1)):
+def flip_2d_array(array, axes: tuple = (0, 1)):
     array = np.flip(array, axes)
+    return array
+
+
+"""
+translate a 2d array
+"""
+
+
+def translate_2d_array(image, x, y, border_type=cv2.BORDER_WRAP, border_value=(0, 0, 0)):
+    # define the translation matrix and perform the translation
+    matrix = np.float32([[1, 0, x], [0, 1, y]])
+    shifted = cv2.warpAffine(image, matrix, (image.shape[1], image.shape[0]), borderMode=border_type,
+                             borderValue=border_value)
+    # return the translated image
+    return shifted
+
+
+"""
+roll an array along one or more axes (you can use this to translate an array along one or more axes)
+"""
+
+
+def roll_array(array, shift, axes=0):
+    array = np.roll(array, shift, axis=axes)
     return array

@@ -23,6 +23,7 @@ display an array as an image
 def show_image(image, axis=False, title="", scale_ratio=2):
     plt.figure(figsize=[scale_ratio * x for x in plt.rcParams["figure.figsize"]])
     plt.title(title)
+    # if the image has an alpha channel, show transparency
     plt.imshow(image, cmap="gray")
     if axis is not True:
         plt.axis('off')
