@@ -264,3 +264,35 @@ roll an array along one or more axes (you can use this to translate an array alo
 def roll_array(array, shift, axes=0):
     array = np.roll(array, shift, axis=axes)
     return array
+
+
+"""
+crop an array to a section between two points
+"""
+
+
+def crop_array(array, top_left, bottom_right):
+    return array[top_left[0]:bottom_right[0], top_left[1]:bottom_right[1]]
+
+
+"""
+blit src array into dst array at position x, y.
+"""
+
+
+def blit(src, dst, x, y, convert_src=None, convert_dst=None):
+    # convert
+    if convert_src is not None:
+        src = cv2.cvtColor(src, convert_src)
+    if convert_dst is not None:
+        dst = cv2.cvtColor(dst, convert_dst)
+    # blit
+    # create a layer of zeros of the same shape as dst, and copy src into it
+    layer = np.zeros(dst.shape, dtype=dst.dtype)
+    # copy src into layer at 0, 0
+    layer[0:src.shape[0], 0:src.shape[1]] = src
+    # translate the layer to the correct position
+    layer = translate_2d_array(layer, x, y, border_type=cv2.BORDER_TRANSPARENT)
+    # paste the layer into dst
+    dst[0:layer.shape[0], 0:layer.shape[1]] = layer
+    return dst

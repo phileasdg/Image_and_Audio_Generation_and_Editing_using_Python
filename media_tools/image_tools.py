@@ -20,11 +20,13 @@ display an array as an image
 """
 
 
-def show_image(image, axis=False, title="", scale_ratio=2):
+def show_image(image, axis=False, title="", scale_ratio=2, flip_y=False):
     plt.figure(figsize=[scale_ratio * x for x in plt.rcParams["figure.figsize"]])
     plt.title(title)
     # if the image has an alpha channel, show transparency
     plt.imshow(image, cmap="gray")
+    if flip_y:
+        plt.gca().invert_yaxis()
     if axis is not True:
         plt.axis('off')
     plt.show()
