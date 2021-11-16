@@ -280,7 +280,7 @@ blit src array into dst array at position x, y.
 """
 
 
-def blit(src, dst, x, y, convert_src=None, convert_dst=None):
+def blit(src, dst, x=0, y=0, convert_src=None, convert_dst=None):
     # convert
     if convert_src is not None:
         src = cv2.cvtColor(src, convert_src)
