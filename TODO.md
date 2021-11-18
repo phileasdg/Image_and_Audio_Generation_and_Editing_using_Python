@@ -1,7 +1,6 @@
 # TODO:
 - Brainstorm effects ideas
   - datamoshing and databending
-  - direct mapping
   - generating stuff using strange attractors
   - pixel sorting
   - colour and form effects
