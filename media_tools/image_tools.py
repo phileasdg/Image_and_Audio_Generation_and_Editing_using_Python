@@ -10,8 +10,13 @@ read an image as an array
 
 
 def read_image(path):
-    image = cv2.imread(path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+    # if the image has an 4 channels
+    if image.shape[2] == 4:
+        image = cv2.cvtColor(image, cv2.COLOR_BGRA2RGBA)
+    # if the image has 3 channels
+    elif image.shape[2] == 3:
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image
 
 
@@ -101,6 +106,15 @@ cv2.BORDER_REFLECT_101, cv2.BORDER_DEFAULT
 """
 
 
-def rotate_image(image, angle, bound=True, point=None, border_type=cv2.BORDER_CONSTANT, border_value=(0, 0, 0)):
+def rotate_image(image, angle, bound=True, border_type=cv2.BORDER_CONSTANT, border_value=(0, 0, 0)):
     image = data_tools.rotate_2d_array_around_point(image, angle, bound, border_type, border_value)
     return image
+
+
+"""
+crop an image array to a range of pixels
+"""
+
+
+def crop_image(image, top_left, bottom_right):
+    return image[top_left[0]:bottom_right[0], top_left[1]:bottom_right[1]]

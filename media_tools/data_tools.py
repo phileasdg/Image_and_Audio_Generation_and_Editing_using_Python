@@ -237,7 +237,10 @@ flip an array along one or more axes
 """
 
 
-def flip_2d_array(array, axes: tuple = (0, 1)):
+def flip_2d_array(array, axes=(0,1)):
+    # if axes is a single value, convert it to a tuple
+    if isinstance(axes, int):
+        axes = (axes,)
     array = np.flip(array, axes)
     return array
 
@@ -280,19 +283,35 @@ blit src array into dst array at position x, y.
 """
 
 
-def blit(src, dst, x=0, y=0, convert_src=None, convert_dst=None):
-    # convert
-    if convert_src is not None:
-        src = cv2.cvtColor(src, convert_src)
-    if convert_dst is not None:
-        dst = cv2.cvtColor(dst, convert_dst)
-    # blit
-    # create a layer of zeros of the same shape as dst, and copy src into it
-    layer = np.zeros(dst.shape, dtype=dst.dtype)
-    # copy src into layer at 0, 0
-    layer[0:src.shape[0], 0:src.shape[1]] = src
-    # translate the layer to the correct position
-    layer = translate_2d_array(layer, x, y, border_type=cv2.BORDER_TRANSPARENT)
-    # paste the layer into dst
-    dst[0:layer.shape[0], 0:layer.shape[1]] = layer
-    return dst
+def blit(src, dst, y=0, x=0, alpha=1):
+    # make copies of the arrays so that the originals are not modified
+    src = src.copy()
+    dst = dst.copy()
+
+    # crop the source array to the correct size to fit into the destination array at the correct position
+    src = crop_array(src, (0, 0), (dst.shape[0] - y, dst.shape[1] - x))
+
+    # check if the source array is a an image array with an alpha channel, if so, use the alpha channel to blend
+    if src.shape[2] == 4:
+        # Code adapted from https://stackoverflow.com/a/59211216/15607967, solution proposed by user "Mala"
+        # create an empty array with the same shape as the destination array
+        mask = np.zeros(dst.shape, dtype=np.uint8)
+        # paste the source array into the destination array at the correct position
+        mask[y:y + src.shape[0], x:x + src.shape[1]] = src
+
+        # normalize alpha channels from 0-255 to 0-1
+        alpha_background = dst[:, :, 3] / 255
+        alpha_foreground = mask[:, :, 3] / 255 * alpha
+
+        # set adjusted colors
+        for color in range(0, 3):
+            dst[:, :, color] = alpha_foreground * mask[:, :, color] + \
+                                      alpha_background * dst[:, :, color] * (1 - alpha_foreground)
+
+        # set adjusted alpha and denormalize back to 0-255
+        dst[:, :, 3] = (1 - (1 - alpha_foreground) * (1 - alpha_background)) * 255
+        return dst
+
+    else:
+        dst[y:y + src.shape[0], x:x + src.shape[1]] = src * alpha + dst[y:y + src.shape[0], x:x + src.shape[1]] * (1 - alpha)
+        return dst

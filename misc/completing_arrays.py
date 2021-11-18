@@ -20,5 +20,3 @@ image_tools.show_image(image_greyscale)
 image_colour = image_tools.array_1d_to_rgb(audio)
 image_tools.show_image(image_colour)
 image_tools.show_image(data_tools.invert_array(image_colour))
-
-# gray cox work submit: this paycheck for the week ending on sunday the 31st of October.
