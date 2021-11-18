@@ -88,7 +88,7 @@ if __name__ == "__main__":
     # image_tools.show_image(gradient, "gradient, vertical, 45 degrees clockwise")
 
     # # using the create_gradient function, edit an array and fill it with a gradient
-    # array2edit = image_tools.read_image(sample_media+"Mosse_2012_Hot_Rats.jpg")
+    # array2edit = image_tools.read_image(sample_media+"student_guide.jpg")
     # edit_mask = create_gradient(array2edit.shape, angle=45, vertical=True)
     # # roll pixel values by between 0 and 255 based on the gradient
     # array2edit[edit_mask == 1] = np.roll(array2edit[edit_mask == 1], -1, axis=2)

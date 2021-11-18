@@ -13,9 +13,9 @@ read audio file as an array
 def read_audio(path, mono=False, return_sr=False):
     y, sr = librosa.load(path, mono=mono)
     if return_sr is False:
-        return y
+        return np.asarray(y)
     else:
-        return y, sr
+        return np.asarray(y), sr
 
 
 """
