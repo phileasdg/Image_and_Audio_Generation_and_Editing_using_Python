@@ -21,4 +21,4 @@ My full independent study proposal is available to read [here](project_documenta
 and more contextual information about the project and this repository specifically can be found [here](project_documentation/General_Independent_Study_Notebook.ipynb).
 
 If you are coming across this project and thinking of trying media_tools out, I hope you enjoy the experience! Pull requests
-are quite welcome!
+are quite welcome! 
