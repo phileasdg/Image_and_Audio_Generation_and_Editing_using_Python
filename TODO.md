@@ -1,4 +1,9 @@
-# TODO:
+# TODO in the future:
+
+Places to take this project forward after the end of this term.
+
+## MAKE THE BLIT FUNCTION TAKE AN OPTIONAL MASK ARGUMENT
+
 - Brainstorm effects ideas
   - datamoshing and databending
   - generating stuff using strange attractors
