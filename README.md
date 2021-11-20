@@ -20,7 +20,7 @@ The media tools package, at present, contains 4 modules:
 My full independent study proposal is available to read [here](project_documentation/Fall%202021%20Independent%20Study%20Proposal%20Phileas.pdf),
 and more contextual information about the project and this repository specifically can be found [here](project_documentation/General_Independent_Study_Notebook.ipynb).
 
-If you are coming across this project and thinking of trying media_tools out, I hope you enjoy the experience! Pull requests
+If you are coming across this project and thinking of trying `media_tools` out, I hope you enjoy the experience! Pull requests
 are quite welcome! 
 
 ![](image_messed_with.png)
