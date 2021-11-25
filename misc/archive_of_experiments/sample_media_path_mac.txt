@@ -1,0 +1,1 @@
+sample_media = "/Users/phileasdazeleygaist/Desktop/Image_and_Audio_Generation_and_Editing_using_Python/sample_media/"

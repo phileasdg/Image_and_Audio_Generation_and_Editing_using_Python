@@ -33,3 +33,6 @@ for i in range(n):
 
 # show the copy
 image_tools.show_image(img_copy, axis=True)
+
+# replace values in array
+
