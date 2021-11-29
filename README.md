@@ -18,9 +18,20 @@ The media tools package, at present, contains 4 modules:
 - `data_tools`, designed to provide general purpose data manipulation capabilities when working with data arrays.
 
 My full independent study proposal is available to read [here](project_documentation/Fall%202021%20Independent%20Study%20Proposal%20Phileas.pdf),
-and more contextual information about the project and this repository specifically can be found [here](project_documentation/General_Independent_Study_Notebook.ipynb).
+and more contextual information about the project and this repository specifically can be found [here](project_documentation/).
 
 If you are coming across this project and thinking of trying `media_tools` out, I hope you enjoy the experience! Pull requests
 are quite welcome! 
 
 ![](image_messed_with.png)
+
+Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
